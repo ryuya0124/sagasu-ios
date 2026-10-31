@@ -1,0 +1,55 @@
+name: AndroidFind
+options:
+  bundleIdPrefix: dev.ryuya
+  deploymentTarget:
+    iOS: "18.0"
+  createIntermediateGroups: true
+configFiles:
+  Debug: Configuration/Signing.xcconfig
+  Release: Configuration/Signing.xcconfig
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    TARGETED_DEVICE_FAMILY: "1"
+    CODE_SIGN_STYLE: Automatic
+    ENABLE_USER_SCRIPT_SANDBOXING: YES
+targets:
+  AndroidFind:
+    type: application
+    platform: iOS
+    sources:
+      - path: AndroidFind
+    settings:
+      base:
+        TARGETED_DEVICE_FAMILY: "1"
+        PRODUCT_BUNDLE_IDENTIFIER: dev.ryuya.AndroidFind
+        PRODUCT_NAME: AndroidFind
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_CFBundleDisplayName: 探す
+        INFOPLIST_KEY_CFBundleDevelopmentRegion: ja
+        INFOPLIST_KEY_ITSAppUsesNonExemptEncryption: NO
+        INFOPLIST_KEY_LSApplicationCategoryType: public.app-category.utilities
+        INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription: Googleのパスキー認証で、近くにあるデバイスとの接続確認にBluetoothを使用します。
+        INFOPLIST_KEY_NSLocationWhenInUseUsageDescription: 地図上に現在地を表示し、デバイスまでの経路を確認します。
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
+        INFOPLIST_KEY_UISupportedInterfaceOrientations: UIInterfaceOrientationPortrait
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        MARKETING_VERSION: "0.7.1"
+        CURRENT_PROJECT_VERSION: "17"
+        "CODE_SIGN_IDENTITY[sdk=iphonesimulator*]": "-"
+        "CODE_SIGNING_ALLOWED[sdk=iphonesimulator*]": YES
+        "CODE_SIGN_ENTITLEMENTS[sdk=iphonesimulator*]": AndroidFind/App/Simulator.entitlements
+    scheme:
+      testTargets:
+        - AndroidFindTests
+  AndroidFindTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: AndroidFindTests
+    dependencies:
+      - target: AndroidFind
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES

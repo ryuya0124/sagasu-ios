@@ -1,0 +1,2 @@
+// Copy this file to Signing.local.xcconfig before signing for a physical iPhone.
+DEVELOPMENT_TEAM = YOUR_APPLE_TEAM_ID

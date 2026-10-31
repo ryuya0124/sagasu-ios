@@ -1,0 +1,3 @@
+// Account-specific signing settings stay on the developer's Mac.
+// The optional include lets simulator builds work without an Apple developer account.
+#include? "Signing.local.xcconfig"

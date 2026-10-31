@@ -1,0 +1,664 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		07BBF955158DAA249DD6CD48 /* DeviceConnectionPrompt.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA109B6346D9E4249455607E /* DeviceConnectionPrompt.swift */; };
+		113457FCF19C719EECAD3AAE /* FindHubBridge.js in Resources */ = {isa = PBXBuildFile; fileRef = 198FD8DA3BDB8BEEBA07A76E /* FindHubBridge.js */; };
+		12CC0244EA8402EA3F3A0D35 /* FindStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0813173AD596F544E473883A /* FindStoreTests.swift */; };
+		260706F08A6FB1B4A77D7C23 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 25CD596CCF54D941C35CF4EE /* PrivacyInfo.xcprivacy */; };
+		2B42DBAD9B0AC894D7943047 /* AndroidFindApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78208D27DC08F8715657B78B /* AndroidFindApp.swift */; };
+		2B663FD1A184B9C8A0D03E12 /* FindPanelLayoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C98A4F89EFE5336577D4BE /* FindPanelLayoutTests.swift */; };
+		2F92E3446B02C1B354921658 /* GoogleSignInButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F8B4473945031EBB05864C /* GoogleSignInButton.swift */; };
+		315675CB01C00265C2968F06 /* FindSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52887FAE56E67A205BDF271 /* FindSession.swift */; };
+		3794E50507C1959F051010DA /* FindDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6ECAFC9D4566F744873981C /* FindDevice.swift */; };
+		395AD23B6C570C8B9C622F84 /* GoogleSessionVaultTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58D86EABDBF90261B7E4043C /* GoogleSessionVaultTests.swift */; };
+		3B41F7246D7D31C741285E12 /* GoogleCredentialVaultTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E88B2D8E39159F8FAAC6D0F /* GoogleCredentialVaultTests.swift */; };
+		45BBB4118BB4F93A5C062235 /* PlaceResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E37D31DA54E7FD6180B3DA9 /* PlaceResolver.swift */; };
+		497B4E305B9237636AB777A0 /* FindMyStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5424459D2C9B368F8FAAAF04 /* FindMyStyle.swift */; };
+		52420235A99D3DB074F6FCDB /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 785984D1583BA95D7EA12819 /* AccountView.swift */; };
+		5F0125CD1A6CEECBF02C6921 /* PasskeyBluetooth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2565951626686A67D8C3E99A /* PasskeyBluetooth.swift */; };
+		62C9DD416896A5907F4887D4 /* AutomaticLoginSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52489112259F4D087E216471 /* AutomaticLoginSettingsView.swift */; };
+		6423B1AC16D7D7533F3C2332 /* DeviceArtwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5602C1E13CC50DD9A0143D5E /* DeviceArtwork.swift */; };
+		6FF04CBBA0298F356C1BA60F /* FindTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FB8B05761200E6F9AD60E90 /* FindTabBar.swift */; };
+		721E7D850F2F1F4CB922A149 /* GoogleAccountIdentity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0892B78B253E9D083F366084 /* GoogleAccountIdentity.swift */; };
+		7B970F76181E4A1E1B48ABB6 /* DeviceAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739F7F21CDF48F8807480244 /* DeviceAction.swift */; };
+		804ACE9B9482C242E54D7EC4 /* FindStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6FFDD544CB472F8AAA2D0E7 /* FindStore.swift */; };
+		81411F8CD0FE7ECDF22D8E9D /* FindPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECC9E419969F0BB4A86EA3A4 /* FindPanel.swift */; };
+		97B563954BFD7E969F439E93 /* BridgeDecoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC8F35B28082A694D4FCF7B /* BridgeDecoderTests.swift */; };
+		9D9608D52B14A107FD7E5E97 /* GoogleConnectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7BD45A10A8F7C1C6C23FF3 /* GoogleConnectionView.swift */; };
+		9F1B56EC51107FB949920566 /* GoogleCredentialVault.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FFFB46EB0C9D294789B6F0 /* GoogleCredentialVault.swift */; };
+		A4E45A5693EFAFAEA41EE177 /* FindPanelLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD853E68E7A78ACA9B00C84 /* FindPanelLayout.swift */; };
+		A768E681F3985A6D2D13FDF2 /* DeviceCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304341ADCD597916DB4E5B8A /* DeviceCache.swift */; };
+		B782E08DF0D777CE2F67B4FB /* FindMapControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4877A19F0B2B05B6D4B7E7E /* FindMapControls.swift */; };
+		BAEE63E8AA37B1A2112C2ED7 /* ConnectionBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 385A02D4E8F503101D517C68 /* ConnectionBanner.swift */; };
+		BE0B689EC42471B757657F5B /* FindTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC0CCD984F55906847D55C4 /* FindTab.swift */; };
+		C1E96D931E9D7856EBE467B6 /* DeviceDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A07896D8605C2DECBBA2E99 /* DeviceDetailView.swift */; };
+		C8C569FF9DC7C8A8D731135D /* GoogleSessionVault.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9A787191D8756AA2686C7A /* GoogleSessionVault.swift */; };
+		CCA5DE499F99541986C5B223 /* GoogleLoginBridge.js in Resources */ = {isa = PBXBuildFile; fileRef = B1E8CFF944FAC3DEB283E823 /* GoogleLoginBridge.js */; };
+		CD564E470985F0C71B2D10D3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 253D2D6CEFF6B80AAA986F03 /* Assets.xcassets */; };
+		D0D121EFB30960E8E770EFC8 /* DeviceImageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1227D2B1DC1D9D95569B3F /* DeviceImageRepository.swift */; };
+		D40BD22DDB31F096C1D38A9D /* FindSecondaryPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3329A5EFB96696FF403D9E05 /* FindSecondaryPanel.swift */; };
+		D79CF1D670B330E198A3BBDE /* GoogleFindSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1024985F402EF256B2AB0E6B /* GoogleFindSession.swift */; };
+		E11EA2301336D90F6478C6F1 /* DeviceCacheTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045CBEC8D25C137BFEC9CE12 /* DeviceCacheTests.swift */; };
+		E6079A6BA4D60648BF339529 /* FindMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE222A375D5CBEF1A06198C /* FindMapView.swift */; };
+		E8975D307A604296EE5740EA /* PrivacyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5705F52FDF5F84D876E0CFBB /* PrivacyView.swift */; };
+		F3A9E5D8B54E1745F6ADF990 /* FindRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA9BDD4FF1379AF163E2AB0 /* FindRootView.swift */; };
+		F6784C2F6EA4C0EE521238FD /* DeviceImageRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 592591845473149A4EF43AFB /* DeviceImageRepositoryTests.swift */; };
+		FAAE5080737DCB7CB968463D /* AutomaticGoogleLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E11C411B32B31527A830484 /* AutomaticGoogleLogin.swift */; };
+		FCCC674091D9C91EC80C03E1 /* DeviceListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5832603488B48F1DCA92CE4 /* DeviceListView.swift */; };
+		FDA7F0CFB03910C62766BCB9 /* DeviceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6549ED2F1054FAFDBD395AC6 /* DeviceRow.swift */; };
+		FF43FEE56B70E88A0CC7EAD8 /* DeviceMapPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38D0C8B3332E3DC5AEBD758D /* DeviceMapPin.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		8A5C943EF183BD45B3EFD58B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7DE55C8A945625BE437DC295 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F019839D31F90E8811157359;
+			remoteInfo = AndroidFind;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		045CBEC8D25C137BFEC9CE12 /* DeviceCacheTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceCacheTests.swift; sourceTree = "<group>"; };
+		0813173AD596F544E473883A /* FindStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindStoreTests.swift; sourceTree = "<group>"; };
+		0892B78B253E9D083F366084 /* GoogleAccountIdentity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleAccountIdentity.swift; sourceTree = "<group>"; };
+		0CA020D5B197D46D3EAB8789 /* AndroidFind.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = AndroidFind.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0E11C411B32B31527A830484 /* AutomaticGoogleLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutomaticGoogleLogin.swift; sourceTree = "<group>"; };
+		0F1227D2B1DC1D9D95569B3F /* DeviceImageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceImageRepository.swift; sourceTree = "<group>"; };
+		1024985F402EF256B2AB0E6B /* GoogleFindSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleFindSession.swift; sourceTree = "<group>"; };
+		198FD8DA3BDB8BEEBA07A76E /* FindHubBridge.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = FindHubBridge.js; sourceTree = "<group>"; };
+		1BC0CCD984F55906847D55C4 /* FindTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindTab.swift; sourceTree = "<group>"; };
+		1C9A787191D8756AA2686C7A /* GoogleSessionVault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSessionVault.swift; sourceTree = "<group>"; };
+		1DE222A375D5CBEF1A06198C /* FindMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindMapView.swift; sourceTree = "<group>"; };
+		1E37D31DA54E7FD6180B3DA9 /* PlaceResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceResolver.swift; sourceTree = "<group>"; };
+		1E88B2D8E39159F8FAAC6D0F /* GoogleCredentialVaultTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleCredentialVaultTests.swift; sourceTree = "<group>"; };
+		253D2D6CEFF6B80AAA986F03 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		2565951626686A67D8C3E99A /* PasskeyBluetooth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasskeyBluetooth.swift; sourceTree = "<group>"; };
+		25CD596CCF54D941C35CF4EE /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		304341ADCD597916DB4E5B8A /* DeviceCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceCache.swift; sourceTree = "<group>"; };
+		3329A5EFB96696FF403D9E05 /* FindSecondaryPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindSecondaryPanel.swift; sourceTree = "<group>"; };
+		385A02D4E8F503101D517C68 /* ConnectionBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionBanner.swift; sourceTree = "<group>"; };
+		38D0C8B3332E3DC5AEBD758D /* DeviceMapPin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceMapPin.swift; sourceTree = "<group>"; };
+		38F8B4473945031EBB05864C /* GoogleSignInButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSignInButton.swift; sourceTree = "<group>"; };
+		4E7BD45A10A8F7C1C6C23FF3 /* GoogleConnectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleConnectionView.swift; sourceTree = "<group>"; };
+		4FB8B05761200E6F9AD60E90 /* FindTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindTabBar.swift; sourceTree = "<group>"; };
+		52489112259F4D087E216471 /* AutomaticLoginSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutomaticLoginSettingsView.swift; sourceTree = "<group>"; };
+		5424459D2C9B368F8FAAAF04 /* FindMyStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindMyStyle.swift; sourceTree = "<group>"; };
+		5602C1E13CC50DD9A0143D5E /* DeviceArtwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceArtwork.swift; sourceTree = "<group>"; };
+		5705F52FDF5F84D876E0CFBB /* PrivacyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyView.swift; sourceTree = "<group>"; };
+		58D86EABDBF90261B7E4043C /* GoogleSessionVaultTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSessionVaultTests.swift; sourceTree = "<group>"; };
+		592591845473149A4EF43AFB /* DeviceImageRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceImageRepositoryTests.swift; sourceTree = "<group>"; };
+		621FF2C8DD595887830F7897 /* Simulator.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Simulator.entitlements; sourceTree = "<group>"; };
+		6549ED2F1054FAFDBD395AC6 /* DeviceRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceRow.swift; sourceTree = "<group>"; };
+		739F7F21CDF48F8807480244 /* DeviceAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceAction.swift; sourceTree = "<group>"; };
+		78208D27DC08F8715657B78B /* AndroidFindApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AndroidFindApp.swift; sourceTree = "<group>"; };
+		785984D1583BA95D7EA12819 /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
+		7A07896D8605C2DECBBA2E99 /* DeviceDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailView.swift; sourceTree = "<group>"; };
+		7BC8F35B28082A694D4FCF7B /* BridgeDecoderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BridgeDecoderTests.swift; sourceTree = "<group>"; };
+		8DD853E68E7A78ACA9B00C84 /* FindPanelLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPanelLayout.swift; sourceTree = "<group>"; };
+		A5832603488B48F1DCA92CE4 /* DeviceListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceListView.swift; sourceTree = "<group>"; };
+		ACA9BDD4FF1379AF163E2AB0 /* FindRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindRootView.swift; sourceTree = "<group>"; };
+		B1E8CFF944FAC3DEB283E823 /* GoogleLoginBridge.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = GoogleLoginBridge.js; sourceTree = "<group>"; };
+		B4877A19F0B2B05B6D4B7E7E /* FindMapControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindMapControls.swift; sourceTree = "<group>"; };
+		B8C98A4F89EFE5336577D4BE /* FindPanelLayoutTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPanelLayoutTests.swift; sourceTree = "<group>"; };
+		C6FFDD544CB472F8AAA2D0E7 /* FindStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindStore.swift; sourceTree = "<group>"; };
+		DBFF0E27ACDF33EA8BC0B919 /* Signing.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Signing.xcconfig; sourceTree = "<group>"; };
+		DD3968B4912EF6DCE00E7607 /* AndroidFindTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = AndroidFindTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E52887FAE56E67A205BDF271 /* FindSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindSession.swift; sourceTree = "<group>"; };
+		EA109B6346D9E4249455607E /* DeviceConnectionPrompt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceConnectionPrompt.swift; sourceTree = "<group>"; };
+		ECC9E419969F0BB4A86EA3A4 /* FindPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPanel.swift; sourceTree = "<group>"; };
+		F1FFFB46EB0C9D294789B6F0 /* GoogleCredentialVault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleCredentialVault.swift; sourceTree = "<group>"; };
+		F6ECAFC9D4566F744873981C /* FindDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindDevice.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		0987571771A7CF6EE1DE6FB5 /* AndroidFindTests */ = {
+			isa = PBXGroup;
+			children = (
+				7BC8F35B28082A694D4FCF7B /* BridgeDecoderTests.swift */,
+				045CBEC8D25C137BFEC9CE12 /* DeviceCacheTests.swift */,
+				592591845473149A4EF43AFB /* DeviceImageRepositoryTests.swift */,
+				B8C98A4F89EFE5336577D4BE /* FindPanelLayoutTests.swift */,
+				0813173AD596F544E473883A /* FindStoreTests.swift */,
+				1E88B2D8E39159F8FAAC6D0F /* GoogleCredentialVaultTests.swift */,
+				58D86EABDBF90261B7E4043C /* GoogleSessionVaultTests.swift */,
+			);
+			path = AndroidFindTests;
+			sourceTree = "<group>";
+		};
+		0EAE60E12A7413D2D97D7646 /* AndroidFind */ = {
+			isa = PBXGroup;
+			children = (
+				310B985D4E94C90984BDB10F /* App */,
+				29D852F894E9EE4ABC8A84F0 /* Models */,
+				D304EF42C927C3445F386F64 /* Resources */,
+				52935E0B835A5AB8385FC0C8 /* Services */,
+				B8DE8BF29E1BA797114D240A /* Views */,
+			);
+			path = AndroidFind;
+			sourceTree = "<group>";
+		};
+		29D852F894E9EE4ABC8A84F0 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				739F7F21CDF48F8807480244 /* DeviceAction.swift */,
+				F6ECAFC9D4566F744873981C /* FindDevice.swift */,
+				8DD853E68E7A78ACA9B00C84 /* FindPanelLayout.swift */,
+				1BC0CCD984F55906847D55C4 /* FindTab.swift */,
+				0892B78B253E9D083F366084 /* GoogleAccountIdentity.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		310B985D4E94C90984BDB10F /* App */ = {
+			isa = PBXGroup;
+			children = (
+				78208D27DC08F8715657B78B /* AndroidFindApp.swift */,
+				621FF2C8DD595887830F7897 /* Simulator.entitlements */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		3A794E2777F7A0E781760150 /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				DBFF0E27ACDF33EA8BC0B919 /* Signing.xcconfig */,
+			);
+			path = Configuration;
+			sourceTree = "<group>";
+		};
+		52935E0B835A5AB8385FC0C8 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				0E11C411B32B31527A830484 /* AutomaticGoogleLogin.swift */,
+				304341ADCD597916DB4E5B8A /* DeviceCache.swift */,
+				0F1227D2B1DC1D9D95569B3F /* DeviceImageRepository.swift */,
+				E52887FAE56E67A205BDF271 /* FindSession.swift */,
+				C6FFDD544CB472F8AAA2D0E7 /* FindStore.swift */,
+				F1FFFB46EB0C9D294789B6F0 /* GoogleCredentialVault.swift */,
+				1024985F402EF256B2AB0E6B /* GoogleFindSession.swift */,
+				1C9A787191D8756AA2686C7A /* GoogleSessionVault.swift */,
+				2565951626686A67D8C3E99A /* PasskeyBluetooth.swift */,
+				1E37D31DA54E7FD6180B3DA9 /* PlaceResolver.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		98BA3FB9358CEDE23D363545 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0CA020D5B197D46D3EAB8789 /* AndroidFind.app */,
+				DD3968B4912EF6DCE00E7607 /* AndroidFindTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A920B8DEC7A900826E487B0C = {
+			isa = PBXGroup;
+			children = (
+				0EAE60E12A7413D2D97D7646 /* AndroidFind */,
+				0987571771A7CF6EE1DE6FB5 /* AndroidFindTests */,
+				3A794E2777F7A0E781760150 /* Configuration */,
+				98BA3FB9358CEDE23D363545 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		B8DE8BF29E1BA797114D240A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				785984D1583BA95D7EA12819 /* AccountView.swift */,
+				52489112259F4D087E216471 /* AutomaticLoginSettingsView.swift */,
+				385A02D4E8F503101D517C68 /* ConnectionBanner.swift */,
+				5602C1E13CC50DD9A0143D5E /* DeviceArtwork.swift */,
+				EA109B6346D9E4249455607E /* DeviceConnectionPrompt.swift */,
+				7A07896D8605C2DECBBA2E99 /* DeviceDetailView.swift */,
+				A5832603488B48F1DCA92CE4 /* DeviceListView.swift */,
+				38D0C8B3332E3DC5AEBD758D /* DeviceMapPin.swift */,
+				6549ED2F1054FAFDBD395AC6 /* DeviceRow.swift */,
+				B4877A19F0B2B05B6D4B7E7E /* FindMapControls.swift */,
+				1DE222A375D5CBEF1A06198C /* FindMapView.swift */,
+				5424459D2C9B368F8FAAAF04 /* FindMyStyle.swift */,
+				ECC9E419969F0BB4A86EA3A4 /* FindPanel.swift */,
+				ACA9BDD4FF1379AF163E2AB0 /* FindRootView.swift */,
+				3329A5EFB96696FF403D9E05 /* FindSecondaryPanel.swift */,
+				4FB8B05761200E6F9AD60E90 /* FindTabBar.swift */,
+				4E7BD45A10A8F7C1C6C23FF3 /* GoogleConnectionView.swift */,
+				38F8B4473945031EBB05864C /* GoogleSignInButton.swift */,
+				5705F52FDF5F84D876E0CFBB /* PrivacyView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		D304EF42C927C3445F386F64 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				253D2D6CEFF6B80AAA986F03 /* Assets.xcassets */,
+				198FD8DA3BDB8BEEBA07A76E /* FindHubBridge.js */,
+				B1E8CFF944FAC3DEB283E823 /* GoogleLoginBridge.js */,
+				25CD596CCF54D941C35CF4EE /* PrivacyInfo.xcprivacy */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		DEBD120D458C9076405781A3 /* AndroidFindTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F76C7FB85B017D31EC1936E9 /* Build configuration list for PBXNativeTarget "AndroidFindTests" */;
+			buildPhases = (
+				57BBF1350302E5A791A154FF /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6507354502B4E9AF469A113E /* PBXTargetDependency */,
+			);
+			name = AndroidFindTests;
+			packageProductDependencies = (
+			);
+			productName = AndroidFindTests;
+			productReference = DD3968B4912EF6DCE00E7607 /* AndroidFindTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		F019839D31F90E8811157359 /* AndroidFind */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 646F3B7267779ACBF018B22F /* Build configuration list for PBXNativeTarget "AndroidFind" */;
+			buildPhases = (
+				7895041E33F63346FFE041EC /* Sources */,
+				862D37368384F89167DDE399 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AndroidFind;
+			packageProductDependencies = (
+			);
+			productName = AndroidFind;
+			productReference = 0CA020D5B197D46D3EAB8789 /* AndroidFind.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		7DE55C8A945625BE437DC295 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					DEBD120D458C9076405781A3 = {
+						ProvisioningStyle = Automatic;
+					};
+					F019839D31F90E8811157359 = {
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 34D15B485B7622637A8616EF /* Build configuration list for PBXProject "AndroidFind" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = A920B8DEC7A900826E487B0C;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 98BA3FB9358CEDE23D363545 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F019839D31F90E8811157359 /* AndroidFind */,
+				DEBD120D458C9076405781A3 /* AndroidFindTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		862D37368384F89167DDE399 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CD564E470985F0C71B2D10D3 /* Assets.xcassets in Resources */,
+				113457FCF19C719EECAD3AAE /* FindHubBridge.js in Resources */,
+				CCA5DE499F99541986C5B223 /* GoogleLoginBridge.js in Resources */,
+				260706F08A6FB1B4A77D7C23 /* PrivacyInfo.xcprivacy in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		57BBF1350302E5A791A154FF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				97B563954BFD7E969F439E93 /* BridgeDecoderTests.swift in Sources */,
+				E11EA2301336D90F6478C6F1 /* DeviceCacheTests.swift in Sources */,
+				F6784C2F6EA4C0EE521238FD /* DeviceImageRepositoryTests.swift in Sources */,
+				2B663FD1A184B9C8A0D03E12 /* FindPanelLayoutTests.swift in Sources */,
+				12CC0244EA8402EA3F3A0D35 /* FindStoreTests.swift in Sources */,
+				3B41F7246D7D31C741285E12 /* GoogleCredentialVaultTests.swift in Sources */,
+				395AD23B6C570C8B9C622F84 /* GoogleSessionVaultTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7895041E33F63346FFE041EC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				52420235A99D3DB074F6FCDB /* AccountView.swift in Sources */,
+				2B42DBAD9B0AC894D7943047 /* AndroidFindApp.swift in Sources */,
+				FAAE5080737DCB7CB968463D /* AutomaticGoogleLogin.swift in Sources */,
+				62C9DD416896A5907F4887D4 /* AutomaticLoginSettingsView.swift in Sources */,
+				BAEE63E8AA37B1A2112C2ED7 /* ConnectionBanner.swift in Sources */,
+				7B970F76181E4A1E1B48ABB6 /* DeviceAction.swift in Sources */,
+				6423B1AC16D7D7533F3C2332 /* DeviceArtwork.swift in Sources */,
+				A768E681F3985A6D2D13FDF2 /* DeviceCache.swift in Sources */,
+				07BBF955158DAA249DD6CD48 /* DeviceConnectionPrompt.swift in Sources */,
+				C1E96D931E9D7856EBE467B6 /* DeviceDetailView.swift in Sources */,
+				D0D121EFB30960E8E770EFC8 /* DeviceImageRepository.swift in Sources */,
+				FCCC674091D9C91EC80C03E1 /* DeviceListView.swift in Sources */,
+				FF43FEE56B70E88A0CC7EAD8 /* DeviceMapPin.swift in Sources */,
+				FDA7F0CFB03910C62766BCB9 /* DeviceRow.swift in Sources */,
+				3794E50507C1959F051010DA /* FindDevice.swift in Sources */,
+				B782E08DF0D777CE2F67B4FB /* FindMapControls.swift in Sources */,
+				E6079A6BA4D60648BF339529 /* FindMapView.swift in Sources */,
+				497B4E305B9237636AB777A0 /* FindMyStyle.swift in Sources */,
+				81411F8CD0FE7ECDF22D8E9D /* FindPanel.swift in Sources */,
+				A4E45A5693EFAFAEA41EE177 /* FindPanelLayout.swift in Sources */,
+				F3A9E5D8B54E1745F6ADF990 /* FindRootView.swift in Sources */,
+				D40BD22DDB31F096C1D38A9D /* FindSecondaryPanel.swift in Sources */,
+				315675CB01C00265C2968F06 /* FindSession.swift in Sources */,
+				804ACE9B9482C242E54D7EC4 /* FindStore.swift in Sources */,
+				BE0B689EC42471B757657F5B /* FindTab.swift in Sources */,
+				6FF04CBBA0298F356C1BA60F /* FindTabBar.swift in Sources */,
+				721E7D850F2F1F4CB922A149 /* GoogleAccountIdentity.swift in Sources */,
+				9D9608D52B14A107FD7E5E97 /* GoogleConnectionView.swift in Sources */,
+				9F1B56EC51107FB949920566 /* GoogleCredentialVault.swift in Sources */,
+				D79CF1D670B330E198A3BBDE /* GoogleFindSession.swift in Sources */,
+				C8C569FF9DC7C8A8D731135D /* GoogleSessionVault.swift in Sources */,
+				2F92E3446B02C1B354921658 /* GoogleSignInButton.swift in Sources */,
+				5F0125CD1A6CEECBF02C6921 /* PasskeyBluetooth.swift in Sources */,
+				45BBB4118BB4F93A5C062235 /* PlaceResolver.swift in Sources */,
+				E8975D307A604296EE5740EA /* PrivacyView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		6507354502B4E9AF469A113E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F019839D31F90E8811157359 /* AndroidFind */;
+			targetProxy = 8A5C943EF183BD45B3EFD58B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		4FAF594DE17A55FEE4C4CF70 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = dev.ryuya.AndroidFindTests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AndroidFind.app/AndroidFind";
+			};
+			name = Release;
+		};
+		85095CFFA195FDDD94FCEC49 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DBFF0E27ACDF33EA8BC0B919 /* Signing.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		9EC3F60E68C8F7C465CB9901 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DBFF0E27ACDF33EA8BC0B919 /* Signing.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		BF3423D951FF2F375B0786B7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = dev.ryuya.AndroidFindTests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AndroidFind.app/AndroidFind";
+			};
+			name = Debug;
+		};
+		C515706153340C53883445A2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGNING_ALLOWED[sdk=iphonesimulator*]" = YES;
+				"CODE_SIGN_ENTITLEMENTS[sdk=iphonesimulator*]" = AndroidFind/App/Simulator.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphonesimulator*]" = "-";
+				CURRENT_PROJECT_VERSION = 17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDevelopmentRegion = ja;
+				INFOPLIST_KEY_CFBundleDisplayName = "探す";
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Googleのパスキー認証で、近くにあるデバイスとの接続確認にBluetoothを使用します。";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "地図上に現在地を表示し、デバイスまでの経路を確認します。";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 0.7.1;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.ryuya.AndroidFind;
+				PRODUCT_NAME = AndroidFind;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		F24F4D01406F8CB6CFA56471 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGNING_ALLOWED[sdk=iphonesimulator*]" = YES;
+				"CODE_SIGN_ENTITLEMENTS[sdk=iphonesimulator*]" = AndroidFind/App/Simulator.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphonesimulator*]" = "-";
+				CURRENT_PROJECT_VERSION = 17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDevelopmentRegion = ja;
+				INFOPLIST_KEY_CFBundleDisplayName = "探す";
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Googleのパスキー認証で、近くにあるデバイスとの接続確認にBluetoothを使用します。";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "地図上に現在地を表示し、デバイスまでの経路を確認します。";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 0.7.1;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.ryuya.AndroidFind;
+				PRODUCT_NAME = AndroidFind;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		34D15B485B7622637A8616EF /* Build configuration list for PBXProject "AndroidFind" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9EC3F60E68C8F7C465CB9901 /* Debug */,
+				85095CFFA195FDDD94FCEC49 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		646F3B7267779ACBF018B22F /* Build configuration list for PBXNativeTarget "AndroidFind" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C515706153340C53883445A2 /* Debug */,
+				F24F4D01406F8CB6CFA56471 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		F76C7FB85B017D31EC1936E9 /* Build configuration list for PBXNativeTarget "AndroidFindTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BF3423D951FF2F375B0786B7 /* Debug */,
+				4FAF594DE17A55FEE4C4CF70 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 7DE55C8A945625BE437DC295 /* Project object */;
+}
