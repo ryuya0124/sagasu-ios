@@ -14,6 +14,8 @@ struct FindRootView: View {
   @State private var isSearching = false
   @State private var mapSelection: String?
   @State private var visibleCamera: MapCamera?
+  @State private var viewportSize: CGSize = .zero
+  @State private var verticalTabsEdge: HorizontalEdge?
   @AppStorage("satelliteMap") private var satellite = false
   @Environment(\.scenePhase) private var scenePhase
   @Environment(\.dynamicTypeSize) private var dynamicTypeSize
@@ -21,22 +23,62 @@ struct FindRootView: View {
 
   private var expanded: Bool { detent == .expanded }
   private var isShowingDetail: Bool { tab == .devices && store.selectedDevice != nil }
+  private var screenLayout: FindScreenLayout {
+    FindScreenLayout(
+      width: viewportSize.width,
+      height: viewportSize.height,
+      usesAccessibilitySize: dynamicTypeSize.isAccessibilitySize,
+      usesVerticalTabs: verticalTabsEdge != nil)
+  }
 
   var body: some View {
-    GeometryReader { geometry in
-      ZStack(alignment: .bottom) {
-        if !store.showGoogle {
-          GoogleWebView(session: store.google)
-            .ignoresSafeArea()
-            .allowsHitTesting(false)
-            .accessibilityHidden(true)
+    FindSystemBarLayout { barEdge in
+      GeometryReader { geometry in
+        let layout = FindScreenLayout(
+          width: geometry.size.width,
+          height: geometry.size.height,
+          usesAccessibilitySize: dynamicTypeSize.isAccessibilitySize,
+          usesVerticalTabs: barEdge != nil)
+        ZStack(alignment: .bottom) {
+          if !store.showGoogle {
+            GoogleWebView(session: store.google)
+              .ignoresSafeArea()
+              .allowsHitTesting(false)
+              .accessibilityHidden(true)
+          }
+          map
+            .overlay(alignment: barEdge == .leading ? .topLeading : .topTrailing) {
+              mapControls(edge: barEdge)
+            }
+            .overlay(alignment: .topLeading) { if store.isDemo { demoPill } }
+          panel(in: geometry, screen: layout, usesVerticalTabs: barEdge != nil)
+            .frame(width: layout.panelWidth)
+            .padding(
+              barEdge == .leading ? .trailing : .leading,
+              layout.isSidebar ? layout.panelInset : 0
+            )
+            .padding(
+              barEdge == .leading ? .leading : .trailing,
+              layout.isSidebar ? 0 : layout.tabRailWidth
+            )
+            .padding(
+              .bottom,
+              layout.isSidebar
+                ? layout.bottomInset
+                : layout.bottomInset - geometry.safeAreaInsets.bottom
+            )
+            .frame(
+              maxWidth: .infinity,
+              alignment: layout.isSidebar ? (barEdge == .leading ? .trailing : .leading) : .center)
+          if let barEdge, !isShowingDetail {
+            FindTabRail(selection: tab, onSelect: selectTab)
+              .padding(.horizontal, 12)
+              .padding(.bottom, 16)
+              .frame(maxWidth: .infinity, alignment: barEdge == .leading ? .leading : .trailing)
+          }
         }
-        map
-          .overlay(alignment: .topTrailing) { mapControls }
-          .overlay(alignment: .topLeading) { if store.isDemo { demoPill } }
-        panel(in: geometry)
-          .padding(.horizontal, FindMyStyle.panelInset)
-          .padding(.bottom, FindMyStyle.panelBottomInset - geometry.safeAreaInsets.bottom)
+        .onChange(of: geometry.size, initial: true) { _, size in viewportSize = size }
+        .onChange(of: barEdge, initial: true) { _, edge in verticalTabsEdge = edge }
       }
     }
     .onChange(of: store.showGoogle, initial: true) { _, presented in
@@ -91,6 +133,9 @@ struct FindRootView: View {
       }
       if store.selectedDevice != nil { focusSelected() }
     }
+    .onChange(of: screenLayout.isSidebar) { _, _ in
+      if store.selectedDevice != nil { focusSelected() }
+    }
     .onChange(of: mapSelection) { _, id in
       if let device = store.devices.first(where: { $0.id == id }) { store.select(device) }
     }
@@ -113,12 +158,13 @@ struct FindRootView: View {
       onCameraChange: { visibleCamera = $0 })
   }
 
-  private var mapControls: some View {
+  private func mapControls(edge: HorizontalEdge?) -> some View {
     FindMapControls(
       satellite: $satellite,
       mapScope: mapScope,
       hasSelectedDevice: store.selectedDevice != nil,
       hasPerspective: (visibleCamera?.pitch ?? 0) > 10,
+      barEdge: edge ?? .trailing,
       onLocate: {
         if store.selectedDevice != nil { focusSelected() } else { fitAll() }
       },
@@ -154,12 +200,15 @@ struct FindRootView: View {
       "demoBadge")
   }
 
-  private func panel(in geometry: GeometryProxy) -> some View {
+  private func panel(
+    in geometry: GeometryProxy, screen: FindScreenLayout, usesVerticalTabs: Bool
+  ) -> some View {
     let layout = FindPanelLayout(
       viewportHeight: geometry.size.height,
       bottomInset: geometry.safeAreaInsets.bottom,
       showsDetail: isShowingDetail,
-      usesAccessibilitySize: dynamicTypeSize.isAccessibilitySize)
+      usesAccessibilitySize: dynamicTypeSize.isAccessibilitySize,
+      isSidebar: screen.isSidebar)
 
     return FindPanel(detent: $detent, layout: layout) {
       if isShowingDetail, let device = store.selectedDevice {
@@ -184,8 +233,12 @@ struct FindRootView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
 
-        FindTabBar(selection: tab, onSelect: selectTab)
-          .padding(.bottom, max(geometry.safeAreaInsets.bottom - FindMyStyle.panelBottomInset, 12))
+        if !usesVerticalTabs {
+          FindTabBar(selection: tab, onSelect: selectTab)
+            .padding(.bottom, screen.isSidebar ? 12 : max(geometry.safeAreaInsets.bottom - 8, 12))
+        } else {
+          Color.clear.frame(height: 16)
+        }
       }
     }
   }
@@ -205,7 +258,8 @@ struct FindRootView: View {
       camera = .region(
         MKCoordinateRegion(
           center: CLLocationCoordinate2D(
-            latitude: coordinate.latitude - (expanded ? 0.0041 : 0.0035),
+            latitude: coordinate.latitude
+              - (screenLayout.isSidebar ? 0 : (expanded ? 0.0041 : 0.0035)),
             longitude: coordinate.longitude),
           span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
         ))

@@ -6,6 +6,7 @@ struct FindMapControls: View {
   let mapScope: Namespace.ID
   let hasSelectedDevice: Bool
   let hasPerspective: Bool
+  var barEdge: HorizontalEdge = .trailing
   let onLocate: () -> Void
   let onTogglePerspective: () -> Void
   @State private var showMapOptions = false
@@ -70,7 +71,7 @@ struct FindMapControls: View {
     }
     .foregroundStyle(.primary)
     .tint(.primary)
-    .padding(.trailing, 16)
+    .padding(barEdge == .leading ? .leading : .trailing, 16)
     .padding(.top, 12)
   }
 

@@ -1,29 +1,48 @@
+import GoogleSignInSwift
 import SwiftUI
 
 struct GoogleSignInButton: View {
-  let action: () -> Void
+  let onSignedIn: (GoogleAccountProfile) -> Void
+  @Environment(GoogleAccountSignIn.self) private var accounts
+  @Environment(\.colorScheme) private var colorScheme
+  @State private var errorMessage: String?
+  @State private var presenter = AuthenticationPresenter()
 
   var body: some View {
-    Button(action: action) {
-      HStack(spacing: 12) {
-        Text("G")
-          .font(.system(size: 22, weight: .bold))
-          .foregroundStyle(
-            AngularGradient(
-              colors: [.blue, .green, .yellow, .red, .blue], center: .center
-            ))
-        Text("Googleでログイン")
-          .font(.system(size: 16, weight: .semibold))
-      }
-      .foregroundStyle(.primary)
-      .frame(maxWidth: .infinity)
-      .frame(height: 49)
-      .background(.background, in: Capsule())
-      .overlay(
-        Capsule()
-          .stroke(.gray.opacity(0.22), lineWidth: 1))
-    }
-    .buttonStyle(.plain)
+    GoogleSignInSwift.GoogleSignInButton(
+      scheme: colorScheme == .dark ? .dark : .light,
+      style: .wide,
+      state: accounts.isWorking ? .disabled : .normal,
+      action: signIn
+    )
     .accessibilityIdentifier("googleSignInButton")
+    .background {
+      AuthenticationPresentationAnchor(presenter: presenter)
+        .frame(width: 0, height: 0)
+    }
+    .alert(
+      "Googleログイン",
+      isPresented: Binding(get: { errorMessage != nil }, set: { if !$0 { errorMessage = nil } })
+    ) {
+      Button("OK", role: .cancel) { errorMessage = nil }
+    } message: {
+      Text(errorMessage ?? "")
+    }
+  }
+
+  private func signIn() {
+    guard let controller = presenter.current() else {
+      errorMessage = GoogleAccountSignInError.noPresentationWindow.localizedDescription
+      return
+    }
+    Task {
+      do {
+        if let account = try await accounts.signIn(presenting: controller) {
+          onSignedIn(account)
+        }
+      } catch {
+        errorMessage = error.localizedDescription
+      }
+    }
   }
 }

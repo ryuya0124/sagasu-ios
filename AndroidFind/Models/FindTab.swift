@@ -8,9 +8,9 @@ enum FindTab: String, CaseIterable {
 
   var symbol: String {
     switch self {
-    case .people: "figure.2"
+    case .people: "person.2.fill"
     case .devices: "laptopcomputer.and.iphone"
-    case .items: "circle.grid.2x2.fill"
+    case .items: "circle.circle"
     case .me: "location.fill"
     }
   }

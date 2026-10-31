@@ -25,6 +25,8 @@ private final class SessionStub: FindSession {
   var actionCancellations = 0
   var cancellations = 0
   var reloads = 0
+  var preparedAccounts: [String] = []
+  func prepareSignIn(accountEmail: String) { preparedAccounts.append(accountEmail) }
   func start() {}
   func loadHome() { reloads += 1 }
   func goBack() {}
@@ -51,6 +53,60 @@ private struct PlaceStub: PlaceResolving {
 }
 
 final class FindStoreTests: XCTestCase {
+  @MainActor
+  func testNativeGoogleSelectionDoesNotAuthorizeFindHubAndRejectsAnotherAccountsData() async throws
+  {
+    let cache = cache()
+    defer { cache.clear() }
+    let session = SessionStub()
+    let store = FindStore(
+      session: session, cache: cache, placeResolver: PlaceStub(),
+      credentialVault: GoogleCredentialVault(service: "test-google-selection-\(UUID())"),
+      arguments: [])
+    session.emit(["type": "account", "email": "first@example.com"])
+    session.emit(inventory)
+    await store.connect(usingGoogleAccount: "second@example.com")
+    XCTAssertNil(store.accountEmail)
+    XCTAssertEqual(store.preferredAccountEmail, "second@example.com")
+    XCTAssertFalse(session.isConnected)
+    XCTAssertTrue(store.devices.isEmpty)
+    XCTAssertTrue(store.showGoogle)
+    XCTAssertEqual(session.preparedAccounts, ["second@example.com"])
+
+    session.emit(["type": "account", "email": "first@example.com"])
+    var wrong = inventory
+    wrong["accountEmail"] = "first@example.com"
+    session.emit(wrong)
+    XCTAssertNil(store.accountEmail)
+    XCTAssertTrue(store.devices.isEmpty)
+
+    session.emit(["type": "account", "email": "second@example.com"])
+    var correct = inventory
+    correct["accountEmail"] = "second@example.com"
+    session.emit(correct)
+    XCTAssertEqual(store.accountEmail, "second@example.com")
+    XCTAssertFalse(store.devices.isEmpty)
+    XCTAssertTrue(session.isConnected)
+  }
+
+  @MainActor
+  func testSelectingTheSameGoogleAccountKeepsTheConfirmedFindHubSession() async throws {
+    let cache = cache()
+    defer { cache.clear() }
+    let session = SessionStub()
+    let store = FindStore(
+      session: session, cache: cache, placeResolver: PlaceStub(),
+      credentialVault: GoogleCredentialVault(service: "test-google-same-account-\(UUID())"),
+      arguments: [])
+    session.emit(["type": "account", "email": "person@example.com"])
+    session.emit(inventory)
+    let previousDevices = store.devices
+    await store.connect(usingGoogleAccount: "person@example.com")
+    XCTAssertTrue(session.isConnected)
+    XCTAssertEqual(store.devices, previousDevices)
+    XCTAssertFalse(store.showGoogle)
+  }
+
   @MainActor
   func testInventoryLoadsLocationsInTheListWithoutSelectingADevice() throws {
     let cache = cache()

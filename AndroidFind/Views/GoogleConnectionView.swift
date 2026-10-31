@@ -13,7 +13,6 @@ struct GoogleConnectionView: View {
   var actionMessage: String? = nil
   @Environment(\.dismiss) private var dismiss
   @Environment(\.openURL) private var openURL
-  @State private var bluetooth = PasskeyBluetooth()
 
   var body: some View {
     NavigationStack {
@@ -37,23 +36,19 @@ struct GoogleConnectionView: View {
         }
         if session.isPasskeyPage {
           HStack(alignment: .center, spacing: 10) {
-            Image(systemName: "antenna.radiowaves.left.and.right")
-            Text(bluetooth.message)
+            Image(systemName: "key.horizontal")
+            Text("この接続画面ではパスキーを使用できません。Googleの「別の方法」で続けるか、ブラウザ版を開いてください。")
               .font(.caption)
               .fixedSize(horizontal: false, vertical: true)
             Spacer(minLength: 0)
-            if bluetooth.authorization == .denied || bluetooth.authorization == .restricted {
-              Button("設定") { openURL(URL(string: UIApplication.openSettingsURLString)!) }
-            } else {
-              Button(bluetooth.authorization == .notDetermined ? "Bluetoothを許可" : "状態を確認") {
-                bluetooth.request()
-              }
+            Button("ブラウザ版") {
+              openURL(GoogleFindSignInURL.browserHome)
             }
           }
           .font(.caption)
           .padding(12)
           .background(.bar)
-          .accessibilityIdentifier("passkeyBluetoothPermission")
+          .accessibilityIdentifier("passkeyBrowserRecovery")
         }
         GoogleWebView(session: session)
           .accessibilityHidden(false)

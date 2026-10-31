@@ -36,8 +36,14 @@ struct FindSecondaryPanel: View {
             Divider()
             LabeledContent("接続", value: store.isDemo ? "デモ" : store.google.status)
             Divider()
-            Button(store.google.isConnected ? "Google画面を開く" : "Googleでログイン") { store.connect() }
-              .frame(minHeight: 36)
+            if store.google.isConnected {
+              Button("Google画面を開く") { store.connect() }
+                .frame(minHeight: 36)
+            } else {
+              GoogleSignInButton { account in
+                store.selectGoogleAccount(account.email)
+              }
+            }
           }
           .font(.body)
           .padding(16)

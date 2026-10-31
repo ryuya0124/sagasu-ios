@@ -8,6 +8,7 @@ final class FindStore {
   var devices: [FindDevice] = []
   private(set) var selectedID: String?
   private(set) var accountEmail: String?
+  private(set) var preferredAccountEmail: String?
   private(set) var automaticLoginEnabled = false
   @ObservationIgnored private let credentialVault: GoogleCredentialVault
   var isDemo = false
@@ -26,6 +27,7 @@ final class FindStore {
   private var soundStates: [String: SoundState] = [:]
   private var pendingSoundStates: [String: SoundState] = [:]
   private var connectAfterAccountDismisses = false
+  @ObservationIgnored private var pendingGoogleAccountEmail: String?
   private var restorePendingSelection = false
   private var lastResume: Date?
   private(set) var prefetchingID: String?
@@ -111,7 +113,47 @@ final class FindStore {
     google.start()
   }
 
+  /// Google profile sign-in does not authorize Find Hub. Keep the last-known account
+  /// separate until the official Web client confirms which account supplied its data.
+  func connect(usingGoogleAccount email: String) async {
+    guard let email = GoogleAccountIdentity.normalized(email) else { return }
+    if accountEmail != email {
+      await disconnect()
+    }
+    if isDemo { leaveDemo() }
+    preferredAccountEmail = email
+    google.prepareSignIn(accountEmail: email)
+    if google.isConnected, accountEmail == email {
+      showAccount = false
+      return
+    }
+    connect()
+  }
+
+  func selectGoogleAccount(_ email: String) {
+    guard let email = GoogleAccountIdentity.normalized(email) else { return }
+    pendingGoogleAccountEmail = email
+    if showAccount {
+      showAccount = false
+    } else if showGoogle {
+      showGoogle = false
+    } else {
+      connectSelectedGoogleAccount()
+    }
+  }
+
+  private func connectSelectedGoogleAccount() {
+    guard let email = pendingGoogleAccountEmail else { return }
+    pendingGoogleAccountEmail = nil
+    Task { await connect(usingGoogleAccount: email) }
+  }
+
   func accountDidDismiss() {
+    if pendingGoogleAccountEmail != nil {
+      connectAfterAccountDismisses = false
+      connectSelectedGoogleAccount()
+      return
+    }
     guard connectAfterAccountDismisses else { return }
     connectAfterAccountDismisses = false
     connect()
@@ -364,6 +406,10 @@ final class FindStore {
   }
 
   func googleDidDismiss() {
+    if pendingGoogleAccountEmail != nil {
+      connectSelectedGoogleAccount()
+      return
+    }
     guard googleAction != nil else { return }
     google.cancelDeviceAction()
     googleAction = nil
@@ -373,6 +419,7 @@ final class FindStore {
   }
 
   func disconnect() async {
+    pendingGoogleAccountEmail = nil
     cancelLocationPrefetch()
     prefetchAttempts = [:]
     google.configureAutomaticLogin(accountEmail: nil)
@@ -389,6 +436,7 @@ final class FindStore {
     devices = []
     selectedID = nil
     accountEmail = nil
+    preferredAccountEmail = nil
     restorePendingSelection = false
     isDemo = false
     isLocating = false
@@ -406,6 +454,13 @@ final class FindStore {
 
   private func receive(_ payload: [String: Any]) {
     guard let type = payload["type"] as? String else { return }
+    if let preferredAccountEmail,
+      ["account", "devices", "location", "status", "sound", "deviceActionOpened"].contains(type)
+    {
+      let email = GoogleAccountIdentity.normalized(
+        type == "account" ? payload["email"] : payload["accountEmail"])
+      guard email == preferredAccountEmail else { return }
+    }
     if type == "account" {
       guard let email = GoogleAccountIdentity.normalized(payload["email"]) else { return }
       if let previous = accountEmail, previous != email {

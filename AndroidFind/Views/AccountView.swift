@@ -5,6 +5,7 @@ struct AccountView: View {
   @State private var showAutomaticLogin = false
   @AppStorage("appearance") private var appearance = "system"
   @Environment(\.dismiss) private var dismiss
+  @Environment(GoogleAccountSignIn.self) private var accounts
 
   var body: some View {
     NavigationStack {
@@ -15,7 +16,7 @@ struct AccountView: View {
               .font(.system(size: 44))
               .foregroundStyle(.gray.opacity(0.6))
             VStack(alignment: .leading, spacing: 5) {
-              Text(store.accountEmail ?? "Googleアカウント")
+              Text(store.accountEmail ?? accounts.account?.email ?? "Googleアカウント")
                 .font(.headline)
                 .lineLimit(2)
                 .minimumScaleFactor(0.8)
@@ -24,7 +25,12 @@ struct AccountView: View {
                 .foregroundStyle(.secondary)
             }
           }
-          Button(store.google.isConnected ? "Google画面を開く" : "Googleでログイン") { store.connect() }
+          if store.google.isConnected {
+            Button("Google画面を開く") { store.connect() }
+          }
+          GoogleSignInButton { account in
+            store.selectGoogleAccount(account.email)
+          }
           if store.accountEmail != nil {
             Button {
               showAutomaticLogin = true
@@ -32,11 +38,9 @@ struct AccountView: View {
               LabeledContent("自動ログイン", value: store.automaticLoginEnabled ? "設定済み" : "オフ")
             }
           }
-          if store.google.isConnected {
-            Button("別のGoogleアカウントに切り替え") {
-              Task { await store.switchGoogleAccount() }
-            }
+          if store.google.isConnected || store.accountEmail != nil || accounts.account != nil {
             Button("このアプリからログアウト", role: .destructive) {
+              accounts.signOut()
               Task { await store.disconnect() }
             }
           }
@@ -66,7 +70,7 @@ struct AccountView: View {
             "バージョン",
             value: Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "—")
         } footer: {
-          Text("前回取得した端末と位置はこのiPhoneに保存され、ログアウトすると削除されます。")
+          Text("前回取得した端末と位置はこのデバイスに保存され、ログアウトすると削除されます。")
         }
       }
       .sheet(isPresented: $showAutomaticLogin) { AutomaticLoginSettingsView(store: store) }

@@ -27,7 +27,7 @@ struct ConnectionBanner: View {
         banner(
           "Googleへのログインが必要です", symbol: "person.crop.circle.badge.exclamationmark", warning: true
         ) {
-          store.connect()
+          store.showAccount = true
         }
       } else if store.google.isLoading || store.google.isRefreshing {
         HStack(spacing: 9) {

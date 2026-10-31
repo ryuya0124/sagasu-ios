@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate the exported iPhone package before a TestFlight upload."""
+"""Validate the exported iPhone/iPad package before a TestFlight upload."""
 import hashlib
 import json
 import os
@@ -15,7 +15,10 @@ ipa = Path(sys.argv[1]).resolve()
 expected_build = sys.argv[2]
 config_path = root / 'Distribution/AppInfo.json'
 if not config_path.exists():
-    raise SystemExit('Copy Distribution/Examples/AppInfo.json to Distribution/AppInfo.json and configure signing first')
+    raise SystemExit(
+        'Copy Distribution/Examples/AppInfo.json to Distribution/AppInfo.json '
+        'and configure signing first'
+    )
 app_info = json.loads(config_path.read_text())
 expected_team = os.environ.get('APPLE_TEAM_ID') or app_info.get('teamId')
 if not expected_team or expected_team == 'YOUR_APPLE_TEAM_ID':
@@ -39,11 +42,27 @@ with tempfile.TemporaryDirectory(prefix='package-check-', dir=private_dir) as di
     info = plistlib.loads((app / 'Info.plist').read_bytes())
     assert info['CFBundleIdentifier'] == app_info['bundleId']
     assert info['CFBundleDisplayName'] == app_info['displayName']
+    assert info['CFBundleName'] == app_info['displayName'], 'System dialogs must use the app name'
+    assert info['CFBundleDevelopmentRegion'] == 'ja', 'Japanese development language is missing'
     assert info['CFBundleVersion'] == expected_build
     assert info['CFBundleSupportedPlatforms'] == ['iPhoneOS']
-    assert info['UIDeviceFamily'] == [1], 'Release must target iPhone only'
+    assert info['UIDeviceFamily'] == app_info.get('deviceFamilies', [1, 2]), (
+        'Unexpected device families'
+    )
     assert info['ITSAppUsesNonExemptEncryption'] is False
-    assert info.get('NSBluetoothAlwaysUsageDescription'), 'Bluetooth purpose is required for passkey permission'
+    client_id = info.get('GIDClientID', '')
+    assert client_id.endswith('.apps.googleusercontent.com'), 'Google iOS OAuth client is missing'
+    reversed_id = '.'.join(reversed(client_id.split('.')))
+    schemes = [
+        scheme
+        for item in info.get('CFBundleURLTypes', [])
+        for scheme in item.get('CFBundleURLSchemes', [])
+    ]
+    assert reversed_id in schemes, 'Google sign-in callback scheme is missing'
+    if 2 in info['UIDeviceFamily']:
+        assert len(info.get('UISupportedInterfaceOrientations~ipad', [])) == 4, (
+            'iPad must support all orientations'
+        )
     icons = info.get('CFBundleIcons', {}).get('CFBundlePrimaryIcon', {})
     assert icons.get('CFBundleIconName') == 'AppIcon'
     assert icons.get('CFBundleIconFiles'), 'Primary app icon is missing'
@@ -60,6 +79,8 @@ with tempfile.TemporaryDirectory(prefix='package-check-', dir=private_dir) as di
     assert not any(b'@gmail.com' in item.read_bytes() for item in app.rglob('*') if item.is_file())
     print(json.dumps({
         'displayName': info['CFBundleDisplayName'],
+        'bundleName': info['CFBundleName'],
+        'developmentRegion': info['CFBundleDevelopmentRegion'],
         'version': info['CFBundleShortVersionString'],
         'build': info['CFBundleVersion'],
         'bundleID': info['CFBundleIdentifier'],
@@ -69,7 +90,7 @@ with tempfile.TemporaryDirectory(prefix='package-check-', dir=private_dir) as di
         'betaReportsActive': entitlements['beta-reports-active'],
         'signatureVerified': True,
         'privacyManifestIncluded': True,
-        'bluetoothPurposeIncluded': True,
+        'systemGoogleSignInConfigured': True,
         'primaryIcon': icons['CFBundleIconName'],
         'userDataOrCredentialFilesFound': False,
         'sha256': hashlib.sha256(ipa.read_bytes()).hexdigest(),

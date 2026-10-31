@@ -20,8 +20,8 @@ struct AutomaticLoginSettingsView: View {
           LabeledContent("Googleアカウント", value: expectedEmail ?? "未接続")
           LabeledContent("自動ログイン", value: store.automaticLoginEnabled ? "設定済み" : "オフ")
         }
-        Section("このiPhoneへの保存") {
-          Text("同意した場合だけ、GoogleのパスワードをこのiPhoneのキーチェーンに保存します。開発者のサーバーやiCloudには送信しません。")
+        Section("このデバイスへの保存") {
+          Text("同意した場合だけ、Googleのパスワードをこのデバイスのキーチェーンに保存します。開発者のサーバーやiCloudには送信しません。")
           Text(
             "保存したパスワードは、Google公式のログイン画面への自動入力に使用します。2段階認証・CAPTCHA・追加の本人確認が必要な場合はGoogle画面を開きます。"
           )

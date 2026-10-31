@@ -4,13 +4,18 @@ options:
   deploymentTarget:
     iOS: "18.0"
   createIntermediateGroups: true
+  developmentLanguage: ja
 configFiles:
   Debug: Configuration/Signing.xcconfig
   Release: Configuration/Signing.xcconfig
+packages:
+  GoogleSignIn:
+    url: https://github.com/google/GoogleSignIn-iOS.git
+    exactVersion: 10.1.0
 settings:
   base:
     SWIFT_VERSION: "6.0"
-    TARGETED_DEVICE_FAMILY: "1"
+    TARGETED_DEVICE_FAMILY: "1,2"
     CODE_SIGN_STYLE: Automatic
     ENABLE_USER_SCRIPT_SANDBOXING: YES
 targets:
@@ -19,24 +24,50 @@ targets:
     platform: iOS
     sources:
       - path: AndroidFind
+        excludes:
+          - Resources/Info.plist
+    info:
+      path: AndroidFind/Resources/Info.plist
+      properties:
+        CFBundleName: 探す
+        CFBundleDisplayName: 探す
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        ITSAppUsesNonExemptEncryption: false
+        LSApplicationCategoryType: public.app-category.utilities
+        NSLocationWhenInUseUsageDescription: 地図上に現在地を表示し、デバイスまでの経路を確認します。
+        UILaunchScreen: {}
+        UIApplicationSceneManifest:
+          UIApplicationSupportsMultipleScenes: true
+          UISceneConfigurations: {}
+        GIDClientID: $(GOOGLE_CLIENT_ID)
+        CFBundleURLTypes:
+          - CFBundleURLName: $(PRODUCT_BUNDLE_IDENTIFIER).google
+            CFBundleURLSchemes:
+              - $(GOOGLE_REVERSED_CLIENT_ID)
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+        UISupportedInterfaceOrientations~ipad:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationPortraitUpsideDown
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+    dependencies:
+      - package: GoogleSignIn
+        product: GoogleSignIn
+      - package: GoogleSignIn
+        product: GoogleSignInSwift
     settings:
       base:
-        TARGETED_DEVICE_FAMILY: "1"
+        TARGETED_DEVICE_FAMILY: "1,2"
         PRODUCT_BUNDLE_IDENTIFIER: dev.ryuya.AndroidFind
         PRODUCT_NAME: AndroidFind
-        GENERATE_INFOPLIST_FILE: YES
-        INFOPLIST_KEY_CFBundleDisplayName: 探す
-        INFOPLIST_KEY_CFBundleDevelopmentRegion: ja
-        INFOPLIST_KEY_ITSAppUsesNonExemptEncryption: NO
-        INFOPLIST_KEY_LSApplicationCategoryType: public.app-category.utilities
-        INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription: Googleのパスキー認証で、近くにあるデバイスとの接続確認にBluetoothを使用します。
-        INFOPLIST_KEY_NSLocationWhenInUseUsageDescription: 地図上に現在地を表示し、デバイスまでの経路を確認します。
-        INFOPLIST_KEY_UILaunchScreen_Generation: YES
-        INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
-        INFOPLIST_KEY_UISupportedInterfaceOrientations: UIInterfaceOrientationPortrait
+        GENERATE_INFOPLIST_FILE: NO
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
-        MARKETING_VERSION: "0.7.1"
-        CURRENT_PROJECT_VERSION: "17"
+        MARKETING_VERSION: "0.8.0"
+        CURRENT_PROJECT_VERSION: "19"
         "CODE_SIGN_IDENTITY[sdk=iphonesimulator*]": "-"
         "CODE_SIGNING_ALLOWED[sdk=iphonesimulator*]": YES
         "CODE_SIGN_ENTITLEMENTS[sdk=iphonesimulator*]": AndroidFind/App/Simulator.entitlements

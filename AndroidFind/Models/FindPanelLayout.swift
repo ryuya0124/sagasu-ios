@@ -19,13 +19,25 @@ struct FindPanelLayout: Equatable {
   let compactHeight: CGFloat
   let mediumHeight: CGFloat
   let maximumHeight: CGFloat
+  let isSidebar: Bool
 
   init(
     viewportHeight: CGFloat,
     bottomInset: CGFloat,
     showsDetail: Bool,
-    usesAccessibilitySize: Bool
+    usesAccessibilitySize: Bool,
+    isSidebar: Bool = false
   ) {
+    self.isSidebar = isSidebar
+    if isSidebar {
+      // The iPad reference uses a floating, resizable card with space above it.
+      maximumHeight = max(0, viewportHeight - 80)
+      compactHeight =
+        usesAccessibilitySize ? maximumHeight : min(showsDetail ? 151 : 160, maximumHeight)
+      mediumHeight =
+        usesAccessibilitySize ? maximumHeight : min(showsDetail ? 600 : 520, maximumHeight)
+      return
+    }
     maximumHeight = max(0, viewportHeight + bottomInset - 28)
     compactHeight =
       usesAccessibilitySize ? maximumHeight : min(showsDetail ? 151 : 160, maximumHeight)

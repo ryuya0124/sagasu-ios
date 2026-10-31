@@ -39,16 +39,8 @@ struct FindTabBar: View {
 
   @ViewBuilder
   private func tabIcon(for item: FindTab) -> some View {
-    if item == .people {
-      HStack(spacing: -5) {
-        Image(systemName: "figure.stand")
-        Image(systemName: "figure.stand")
-      }
-      .font(.system(size: 23, weight: .semibold))
-    } else {
-      Image(systemName: item.symbol)
-        .font(.system(size: 22, weight: .regular))
-    }
+    Image(systemName: item.symbol)
+      .font(.system(size: 22, weight: .regular))
   }
 
 }
