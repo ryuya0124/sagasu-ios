@@ -1,4 +1,0 @@
-// Create an iOS OAuth client for the same bundle ID as project.yml.
-// Copy to GoogleSignIn.local.xcconfig and replace both values from Google Cloud.
-GOOGLE_CLIENT_ID = YOUR_IOS_CLIENT_ID.apps.googleusercontent.com
-GOOGLE_REVERSED_CLIENT_ID = com.googleusercontent.apps.YOUR_IOS_CLIENT_ID

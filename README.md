@@ -2,7 +2,7 @@
 
 Android端末をiPhone・iPadから確認する、SwiftUI製の非公式クライアントです。Google Find Hubの公式Webクライアントを利用し、取得した端末情報をMapKitとネイティブの一覧に表示します。
 
-GoogleやAppleの公式アプリではありません。現在のソースは **0.8.0（19）**、TestFlightの登録名は「探す - Android端末」です。
+GoogleやAppleの公式アプリではありません。現在のソースは **0.8.1（20）**、TestFlightの登録名は「探す - Android端末」です。
 
 ## 機能
 
@@ -13,7 +13,7 @@ GoogleやAppleの公式アプリではありません。現在のソースは **
 - 取得できた機種・メーカー・通信事業者・IMEIなどの表示
 - サウンド、紛失モード、紛失マーク解除、消去のGoogle公式操作画面への接続
 - 前回の端末情報のローカル保存と、アカウント変更時のデータ分離
-- Google公式SDKによるシステムブラウザーでのアカウント選択
+- 接続開始から直接Find Hubの公式Web画面でログイン
 - iPadの左側パネル、iPhone Duoの開閉・回転に応じた配置と縦タブ
 
 端末画像はGoogleが提供するものを使用します。取得できない情報は補って表示せず、前回の位置には古い情報であることを示します。リモート操作の最終確認はGoogleの画面で行います。
@@ -50,11 +50,11 @@ cp Configuration/Signing.example.xcconfig Configuration/Signing.local.xcconfig
 
 ### Googleログイン
 
-自身のBundle ID用にiOS OAuthクライアントを作り、`Configuration/GoogleSignIn.example.xcconfig`を`GoogleSignIn.local.xcconfig`へコピーして設定します。設定前でもシミュレーターのデモは動作します。[認証設定と制約](Documentation/GoogleSignIn.md)を参照してください。クライアントシークレットは使用しません。
+接続ボタンから直接Find Hubを開き、そのGoogle画面でログインします。Googleプロフィール用の先行ログインや、Google CloudのOAuth設定は不要です。[接続方式と制約](Documentation/GoogleSignIn.md)を参照してください。
 
 ## テストと整形
 
-Swiftの回帰テスト65件と、JavaScriptのブリッジテスト32件を含みます。
+Swiftの回帰テスト57件と、JavaScriptのブリッジテスト32件を含みます。
 
 ```sh
 node --test Scripts/bridge.test.cjs Scripts/login-bridge.test.cjs
@@ -80,8 +80,7 @@ npx --yes prettier@3.6.2 --check AndroidFind/Resources/*.js Scripts/*.cjs
 | `Views/DeviceArtwork.swift` / `DeviceMapPin.swift` | Googleの端末画像と地図マーカー |
 | `Views/FindTabBar.swift` / `FindSecondaryPanel.swift` | タブと補助画面 |
 | `Views/AccountView.swift` / `GoogleConnectionView.swift` | アカウント設定と接続画面 |
-| `Services/GoogleAccountSignIn.swift` / `GoogleSDKAccountProvider.swift` | Google公式SDKの認証と状態管理 |
-| `Views/AuthenticationPresenter.swift` | 押されたボタンのウィンドウから認証を表示 |
+| `Services/LegacyGoogleSignInSession.swift` | 旧版のプロフィール認証情報だけをローカルで削除 |
 | `Services/FindStore.swift` | 端末の選択、位置取得、アカウント別の状態管理 |
 | `Services/GoogleFindSession.swift` | WebKitの接続とネイティブUIへのイベント通知 |
 | `Resources/FindHubBridge.js` | Google Webクライアントの端末情報・操作のアダプター |
@@ -95,7 +94,7 @@ npx --yes prettier@3.6.2 --check AndroidFind/Resources/*.js Scripts/*.cjs
 
 セッションと、明示的に同意して設定した場合の自動ログイン用パスワードは、この端末のキーチェーンに保存します。保存は初期状態で無効です。設定から削除でき、ログアウトやアカウント切り替えでも解除します。コード・ログへパスワードや認証コードを埋め込みません。端末情報のキャッシュにはファイル保護を設定し、バックアップ対象から除外します。
 
-Google標準ログインはシステムブラウザーを使います。Find HubのWeb接続には別の認証が必要になる場合があります。WKWebViewでのGoogleパスキー認証には制約があり、Bluetooth権限の付与だけでは解決しません。未対応のパスキー画面では別の認証方法かブラウザー版を案内します。ブラウザー版からアプリへFind Hubのセッションが移るわけではありません。[Appleのパスキー仕様](https://developer.apple.com/documentation/authenticationservices/supporting-passkeys)と[GoogleのiOS向けログイン](https://developers.google.com/identity/sign-in/ios/start-integrating)を参照してください。
+Googleへの認証と端末取得には同じFind Hub用Webセッションを使います。WKWebViewでのGoogleパスキー認証には制約があり、Bluetooth権限の付与だけでは解決しません。Googleの画面で利用できない認証方法がある場合は「別の方法」を選んでください。[Appleのパスキー仕様](https://developer.apple.com/documentation/authenticationservices/supporting-passkeys)と[GoogleのiOS向けログイン](https://developers.google.com/identity/sign-in/ios/start-integrating)を参照してください。
 
 iPadとDuoの参考資料・配置規則は[画面レイアウト](Documentation/AdaptiveLayout.md)にまとめています。
 
@@ -106,7 +105,7 @@ iPadとDuoの参考資料・配置規則は[画面レイアウト](Documentation
 App Store Connect APIの秘密鍵はリポジトリ外で管理し、`Scripts/app-store-connect.rb`へ`ASC_KEY_PATH`、`ASC_KEY_ID`、`ASC_ISSUER_ID`を環境変数で渡します。署名済みIPAは次のスクリプトで検証できます。
 
 ```sh
-python3 Scripts/validate-internal-package.py /path/to/AndroidFind.ipa 19
+python3 Scripts/validate-internal-package.py /path/to/AndroidFind.ipa 20
 ```
 
 実データ、認証情報、スクリーンショット、調査用データ、署名済みIPA、アーカイブ、ローカル配布設定は公開対象から除外しています。アプリの独自アイコンは`Scripts/GenerateIcon.swift`から生成できます。

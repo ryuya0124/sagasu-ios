@@ -40,9 +40,7 @@ struct FindSecondaryPanel: View {
               Button("Google画面を開く") { store.connect() }
                 .frame(minHeight: 36)
             } else {
-              GoogleSignInButton { account in
-                store.selectGoogleAccount(account.email)
-              }
+              FindHubConnectionButton { store.connect() }
             }
           }
           .font(.body)

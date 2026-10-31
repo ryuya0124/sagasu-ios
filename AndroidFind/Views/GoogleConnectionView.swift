@@ -12,7 +12,6 @@ struct GoogleConnectionView: View {
   var action: DeviceActionRequest? = nil
   var actionMessage: String? = nil
   @Environment(\.dismiss) private var dismiss
-  @Environment(\.openURL) private var openURL
 
   var body: some View {
     NavigationStack {
@@ -33,22 +32,6 @@ struct GoogleConnectionView: View {
           .frame(maxWidth: .infinity)
           .padding(12)
           .background(.bar)
-        }
-        if session.isPasskeyPage {
-          HStack(alignment: .center, spacing: 10) {
-            Image(systemName: "key.horizontal")
-            Text("この接続画面ではパスキーを使用できません。Googleの「別の方法」で続けるか、ブラウザ版を開いてください。")
-              .font(.caption)
-              .fixedSize(horizontal: false, vertical: true)
-            Spacer(minLength: 0)
-            Button("ブラウザ版") {
-              openURL(GoogleFindSignInURL.browserHome)
-            }
-          }
-          .font(.caption)
-          .padding(12)
-          .background(.bar)
-          .accessibilityIdentifier("passkeyBrowserRecovery")
         }
         GoogleWebView(session: session)
           .accessibilityHidden(false)

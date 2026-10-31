@@ -39,7 +39,6 @@ final class GoogleFindSession: NSObject, WKNavigationDelegate, WKScriptMessageHa
   @ObservationIgnored private var isRestoringSession = false
   @ObservationIgnored private var entryURL: URL?
   @ObservationIgnored private var activeAccountEmail: String?
-  @ObservationIgnored private var preferredAccountEmail: String?
   @ObservationIgnored private let credentialVault = GoogleCredentialVault()
   @ObservationIgnored private var automaticEmail: String?
   @ObservationIgnored private var browserPresented = false
@@ -106,11 +105,6 @@ final class GoogleFindSession: NSObject, WKNavigationDelegate, WKScriptMessageHa
     loadHome()
   }
 
-  func prepareSignIn(accountEmail: String) {
-    preferredAccountEmail = GoogleAccountIdentity.normalized(accountEmail)
-    if !isConnected { loadHome() }
-  }
-
   func loadHome() {
     hasStarted = true
     status = "Googleに接続中…"
@@ -128,7 +122,7 @@ final class GoogleFindSession: NSObject, WKNavigationDelegate, WKScriptMessageHa
       guard let self else { return }
       await self.restoreSession()
       guard self.sessionGeneration == generation else { return }
-      let url = self.entryURL ?? GoogleFindSignInURL.home(accountEmail: self.preferredAccountEmail)
+      let url = self.entryURL ?? GoogleFindSignInURL.browserHome
       self.webView.load(URLRequest(url: url))
     }
   }
@@ -257,7 +251,6 @@ final class GoogleFindSession: NSObject, WKNavigationDelegate, WKScriptMessageHa
     savedAuthenticatedSession = false
     entryURL = nil
     activeAccountEmail = nil
-    preferredAccountEmail = nil
     vault.delete()
     selectionTimeout?.cancel()
     pendingSelection = nil
@@ -388,19 +381,6 @@ final class GoogleFindSession: NSObject, WKNavigationDelegate, WKScriptMessageHa
       let payload = message.body as? [String: Any]
     else { return }
     let type = payload["type"] as? String
-    if let preferredAccountEmail {
-      let reportedEmail = GoogleAccountIdentity.normalized(
-        type == "account" ? payload["email"] : payload["accountEmail"])
-      guard reportedEmail == preferredAccountEmail else {
-        if type == "account" {
-          isConnected = false
-          requiresSignIn = true
-          status = "選択したGoogleアカウントで接続してください"
-          onEvent?(["type": "auth", "needsUserInteraction": true])
-        }
-        return
-      }
-    }
     if type == "account" {
       guard let email = GoogleAccountIdentity.normalized(payload["email"]) else { return }
       if isAutomaticallySigningIn, let expected = automaticEmail, email != expected {
@@ -444,9 +424,9 @@ final class GoogleFindSession: NSObject, WKNavigationDelegate, WKScriptMessageHa
     }
     saveEntryURLIfNeeded(url)
     onEvent?(payload)
-    if type == "account", preferredAccountEmail != nil, devices.isEmpty {
+    if type == "account", devices.isEmpty {
       // Inventory may have arrived before the account header. Request it again once
-      // the selected identity is confirmed instead of accepting unowned data.
+      // the Web session's identity is confirmed instead of accepting unowned data.
       call("refreshDevices")
     }
     if payload["type"] as? String == "devices" || payload["type"] as? String == "location" {

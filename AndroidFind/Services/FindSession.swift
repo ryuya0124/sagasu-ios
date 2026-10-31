@@ -29,7 +29,6 @@ protocol FindSession: AnyObject, Observable {
   func configureAutomaticLogin(accountEmail: String?)
   func retryAutomaticLogin()
   func setBrowserPresented(_ presented: Bool)
-  func prepareSignIn(accountEmail: String)
   func signOutLocally() async
 }
 
@@ -40,5 +39,4 @@ extension FindSession {
   func configureAutomaticLogin(accountEmail: String?) {}
   func retryAutomaticLogin() {}
   func setBrowserPresented(_ presented: Bool) {}
-  func prepareSignIn(accountEmail: String) {}
 }

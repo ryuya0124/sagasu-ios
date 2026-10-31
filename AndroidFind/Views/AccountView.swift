@@ -5,7 +5,6 @@ struct AccountView: View {
   @State private var showAutomaticLogin = false
   @AppStorage("appearance") private var appearance = "system"
   @Environment(\.dismiss) private var dismiss
-  @Environment(GoogleAccountSignIn.self) private var accounts
 
   var body: some View {
     NavigationStack {
@@ -16,7 +15,7 @@ struct AccountView: View {
               .font(.system(size: 44))
               .foregroundStyle(.gray.opacity(0.6))
             VStack(alignment: .leading, spacing: 5) {
-              Text(store.accountEmail ?? accounts.account?.email ?? "Googleアカウント")
+              Text(store.accountEmail ?? "Googleアカウント")
                 .font(.headline)
                 .lineLimit(2)
                 .minimumScaleFactor(0.8)
@@ -25,12 +24,10 @@ struct AccountView: View {
                 .foregroundStyle(.secondary)
             }
           }
-          if store.google.isConnected {
-            Button("Google画面を開く") { store.connect() }
+          Button(store.google.isConnected ? "Find Hubを開く" : "Find Hubに接続") {
+            store.connect()
           }
-          GoogleSignInButton { account in
-            store.selectGoogleAccount(account.email)
-          }
+          .accessibilityIdentifier("findHubConnectButton")
           if store.accountEmail != nil {
             Button {
               showAutomaticLogin = true
@@ -38,9 +35,8 @@ struct AccountView: View {
               LabeledContent("自動ログイン", value: store.automaticLoginEnabled ? "設定済み" : "オフ")
             }
           }
-          if store.google.isConnected || store.accountEmail != nil || accounts.account != nil {
+          if store.google.isConnected || store.accountEmail != nil {
             Button("このアプリからログアウト", role: .destructive) {
-              accounts.signOut()
               Task { await store.disconnect() }
             }
           }

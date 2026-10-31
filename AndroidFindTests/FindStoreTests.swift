@@ -25,9 +25,9 @@ private final class SessionStub: FindSession {
   var actionCancellations = 0
   var cancellations = 0
   var reloads = 0
-  var preparedAccounts: [String] = []
-  func prepareSignIn(accountEmail: String) { preparedAccounts.append(accountEmail) }
-  func start() {}
+  var starts = 0
+  var signOuts = 0
+  func start() { starts += 1 }
   func loadHome() { reloads += 1 }
   func goBack() {}
   func refreshDevices() {}
@@ -41,6 +41,7 @@ private final class SessionStub: FindSession {
   }
   func cancelDeviceAction() { actionCancellations += 1 }
   func signOutLocally() async {
+    signOuts += 1
     devices = []
     isConnected = false
   }
@@ -54,43 +55,31 @@ private struct PlaceStub: PlaceResolving {
 
 final class FindStoreTests: XCTestCase {
   @MainActor
-  func testNativeGoogleSelectionDoesNotAuthorizeFindHubAndRejectsAnotherAccountsData() async throws
-  {
+  func testConnectOpensFindHubWithoutAPrecedingIdentitySignIn() {
     let cache = cache()
     defer { cache.clear() }
     let session = SessionStub()
     let store = FindStore(
       session: session, cache: cache, placeResolver: PlaceStub(),
-      credentialVault: GoogleCredentialVault(service: "test-google-selection-\(UUID())"),
+      credentialVault: GoogleCredentialVault(service: "test-direct-connection-\(UUID())"),
       arguments: [])
-    session.emit(["type": "account", "email": "first@example.com"])
-    session.emit(inventory)
-    await store.connect(usingGoogleAccount: "second@example.com")
+    session.isConnected = false
+    store.connect()
     XCTAssertNil(store.accountEmail)
-    XCTAssertEqual(store.preferredAccountEmail, "second@example.com")
     XCTAssertFalse(session.isConnected)
-    XCTAssertTrue(store.devices.isEmpty)
     XCTAssertTrue(store.showGoogle)
-    XCTAssertEqual(session.preparedAccounts, ["second@example.com"])
-
-    session.emit(["type": "account", "email": "first@example.com"])
-    var wrong = inventory
-    wrong["accountEmail"] = "first@example.com"
-    session.emit(wrong)
-    XCTAssertNil(store.accountEmail)
-    XCTAssertTrue(store.devices.isEmpty)
-
-    session.emit(["type": "account", "email": "second@example.com"])
-    var correct = inventory
-    correct["accountEmail"] = "second@example.com"
-    session.emit(correct)
-    XCTAssertEqual(store.accountEmail, "second@example.com")
+    XCTAssertFalse(store.showAccount)
+    XCTAssertEqual(session.starts, 1)
+    XCTAssertEqual(session.signOuts, 0)
+    session.emit(["type": "account", "email": "person@example.com"])
+    session.emit(inventory)
+    XCTAssertEqual(store.accountEmail, "person@example.com")
     XCTAssertFalse(store.devices.isEmpty)
     XCTAssertTrue(session.isConnected)
   }
 
   @MainActor
-  func testSelectingTheSameGoogleAccountKeepsTheConfirmedFindHubSession() async throws {
+  func testConnectFromAccountWaitsForDismissalAndKeepsTheExistingWebSession() {
     let cache = cache()
     defer { cache.clear() }
     let session = SessionStub()
@@ -101,10 +90,19 @@ final class FindStoreTests: XCTestCase {
     session.emit(["type": "account", "email": "person@example.com"])
     session.emit(inventory)
     let previousDevices = store.devices
-    await store.connect(usingGoogleAccount: "person@example.com")
+    store.showAccount = true
+    store.connect()
+    XCTAssertFalse(store.showAccount)
+    XCTAssertFalse(store.showGoogle)
+    XCTAssertEqual(session.starts, 0)
+    store.accountDidDismiss()
+    XCTAssertTrue(store.showGoogle)
+    XCTAssertEqual(session.starts, 1)
+    XCTAssertEqual(session.signOuts, 0)
     XCTAssertTrue(session.isConnected)
     XCTAssertEqual(store.devices, previousDevices)
-    XCTAssertFalse(store.showGoogle)
+    store.accountDidDismiss()
+    XCTAssertEqual(session.starts, 1)
   }
 
   @MainActor

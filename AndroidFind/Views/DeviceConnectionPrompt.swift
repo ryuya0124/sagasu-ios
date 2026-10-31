@@ -57,10 +57,8 @@ struct DeviceConnectionPrompt: View {
             .multilineTextAlignment(.center)
             .lineSpacing(3)
         }
-        GoogleSignInButton { account in
-          store.selectGoogleAccount(account.email)
-        }
-        .padding(.horizontal, 30)
+        FindHubConnectionButton { store.connect() }
+          .padding(.horizontal, 30)
         Button("デモを見てみる") { store.enableDemo() }
           .font(.subheadline.weight(.medium))
           .accessibilityIdentifier("demoButton")

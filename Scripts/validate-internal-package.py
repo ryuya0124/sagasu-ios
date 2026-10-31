@@ -50,15 +50,8 @@ with tempfile.TemporaryDirectory(prefix='package-check-', dir=private_dir) as di
         'Unexpected device families'
     )
     assert info['ITSAppUsesNonExemptEncryption'] is False
-    client_id = info.get('GIDClientID', '')
-    assert client_id.endswith('.apps.googleusercontent.com'), 'Google iOS OAuth client is missing'
-    reversed_id = '.'.join(reversed(client_id.split('.')))
-    schemes = [
-        scheme
-        for item in info.get('CFBundleURLTypes', [])
-        for scheme in item.get('CFBundleURLSchemes', [])
-    ]
-    assert reversed_id in schemes, 'Google sign-in callback scheme is missing'
+    assert not info.get('GIDClientID'), 'The retired identity-only sign-in must not be configured'
+    assert not info.get('CFBundleURLTypes'), 'The retired Google OAuth callback must be removed'
     if 2 in info['UIDeviceFamily']:
         assert len(info.get('UISupportedInterfaceOrientations~ipad', [])) == 4, (
             'iPad must support all orientations'
@@ -90,7 +83,7 @@ with tempfile.TemporaryDirectory(prefix='package-check-', dir=private_dir) as di
         'betaReportsActive': entitlements['beta-reports-active'],
         'signatureVerified': True,
         'privacyManifestIncluded': True,
-        'systemGoogleSignInConfigured': True,
+        'authenticationMode': 'DIRECT_FIND_HUB_WEB',
         'primaryIcon': icons['CFBundleIconName'],
         'userDataOrCredentialFilesFound': False,
         'sha256': hashlib.sha256(ipa.read_bytes()).hexdigest(),

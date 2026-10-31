@@ -1,4 +1,0 @@
-// The public checkout can run the demo before an OAuth client is configured.
-GOOGLE_CLIENT_ID =
-GOOGLE_REVERSED_CLIENT_ID = dev.ryuya.AndroidFind.google-unconfigured
-#include? "GoogleSignIn.local.xcconfig"
